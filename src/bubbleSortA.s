@@ -1,9 +1,9 @@
-    .global _main
+    .global _ABubbleSort
 	
 	.data
 	.text
 	
-_main:
+_ABubbleSort:
     
     
     

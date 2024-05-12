@@ -1,4 +1,7 @@
-void BubbleSort (int a[], int length)
+#include <iostream>
+using namespace std;
+
+void BubbleSort (long long int a[], int length)
 {
 	int i, j, temp;
 	
