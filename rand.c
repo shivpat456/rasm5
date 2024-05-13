@@ -12,7 +12,7 @@ int main() {
      * sz_r: the size of the int */
     FILE *f = fopen(FILE_NAME, "wb");
     if (!f) return 1;
-    signed long long r;
+    signed long long int r;
     size_t sz_r = sizeof(r);
 
     /* Write to the file loop. */

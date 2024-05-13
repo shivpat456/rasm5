@@ -3,7 +3,8 @@ using namespace std;
 
 void BubbleSort (long long int a[], int length)
 {
-	int i, j, temp;
+	int i, j;
+    long long int temp;
 	
     for (i = 0; i < length; i++)
     {
