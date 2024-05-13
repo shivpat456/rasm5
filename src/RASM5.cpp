@@ -6,14 +6,17 @@ using namespace std;
 
 void displayMenu();                                                 // Reusuable Function to Displays the Menu 
 void loadInputFile();                                               // Function that Loads the Input File
-void BubbleSort(long long int a[], int size);                                 // Function cBubbleSort();                   // Function aBubbleSort();
+void BubbleSort(long long int a[], int size);                       // Function cBubbleSort();                   // Function aBubbleSort();
 extern "C" void a_bubble_sort(long long int a[], int size);         // Function aBubbleSort();
+void insertionSortC(long long int a[], int size);                   // Function cInsertionSort();
 int SIZE = 0;                                                       // The Size of our Array
 long long int *unSortedArray;                                       // Pointer to hold Memory Address of dynamicly created array
 long long int *sortedCBubbleSortArray;                              // pointer for the cBubbleSortArray
 long long int *sortedABubbleSortArray;
+long long int *sortedCInsertionSortArray;                
 double CBubbleSortTime;
 double ABubbleSortTime;
+double CInsertionSortTime;
 int main() {
     
     system("clear");
@@ -23,7 +26,7 @@ int main() {
         cout  << "Enter your choice: " << endl;
         cin  >> userChoice;
         //fixes input failure and does not allow the "enter correct choice" screen to repeat
-        while (userChoice < 49 || userChoice > 52 ) {
+        while (userChoice < 49 || userChoice > '6' ) {
                 system("clear");
                 displayMenu(); ;
                 cout << "Please enter a correct choice" << endl << endl;
@@ -74,7 +77,7 @@ int main() {
                         clock_t end = clock();
                         ABubbleSortTime= static_cast<double>(end - start) / CLOCKS_PER_SEC;
 
-                                              //------Write to a File-------------------
+                        //------Write to a File-------------------
                         ofstream file("sortedABubbleSort.txt");
                         for (int i =0; i < SIZE; i++) {
                             file << sortedABubbleSortArray[i] << '\n';
@@ -90,10 +93,32 @@ int main() {
                     }
                     break;
             case '4':
+                    if (SIZE <= 0) {
+                        cout << "There is no items to be sorted." << endl;
+                    } else  {
+                        sortedCInsertionSortArray = new long long int[SIZE];
+                        for (int i = 0; i < SIZE; i++) {
+                            sortedCInsertionSortArray[i] = unSortedArray[i];
+                        }
+                    clock_t start = clock();
+                    insertionSortC(sortedCInsertionSortArray, SIZE);
+                    clock_t end = clock();
+                    CInsertionSortTime = static_cast<double>(end - start) / CLOCKS_PER_SEC;
+                        //------Write to a File-------------------
+                        ofstream file("sortedCInsertionSort.txt");
+                        for (int i =0; i < SIZE; i++) {
+                            file << sortedCInsertionSortArray[i] << '\n';
+                        }
+                        file.close();
+                    }
+                    break;
+            case '5':
+                    break;
+            case '6':
                     break;
         }
         cout << endl;
-    } while (userChoice != '4');
+    } while (userChoice != '6');
     return 0;
 }
 
@@ -104,13 +129,15 @@ void displayMenu() {
     cout << "C          Bubblesort Time: " << CBubbleSortTime << " seconds" << endl;
     cout << "Assembly   Bubblesort Time: " << ABubbleSortTime << " seconds" << endl;
     cout << endl;
-    cout << "C          Insertionsort Time: " << endl;
+    cout << "C          Insertionsort Time: " << CInsertionSortTime << " seconds" << endl;
     cout << "Assembly   Insertionsort Time: " << endl;
     cout << "------------------------------------------------" << endl;
     cout << "<1> Load Input File (integers)"                   << endl;
     cout << "<2> Sort using C Bubblesort algorithim"           << endl;
     cout << "<3> Sort using Assembly Bubblesort algorithm"     << endl;
-    cout << "<4> Quit"                                         << endl;
+    cout << "<4> Sorting using C Insertionsort algorithim"     << endl;
+    cout << "<5> Sorting using Assembly Insertionsort algorithim" << endl;
+    cout << "<6> Quit"                                         << endl;
 }
 
 
@@ -144,6 +171,4 @@ void loadInputFile() {
     //     cout << unSortedArray[i] << endl;
     // }
     //---------------------------------------------------
-
-
 }
