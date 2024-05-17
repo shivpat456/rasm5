@@ -7,7 +7,7 @@ EXEC=build/RASM5.out
 SRC_DIR=src
 
 OBJ_DIR=build
-OBJS=$(OBJ_DIR)/bubbleSortA.o $(OBJ_DIR)/bubbleSortC.o $(OBJ_DIR)/insertionSortC.o $(OBJ_DIR)/RASM5.o ../obj/putstring.o ../obj/String_length.o
+OBJS=$(OBJ_DIR)/bubbleSortA.o $(OBJ_DIR)/insertionSortA.o $(OBJ_DIR)/bubbleSortC.o $(OBJ_DIR)/insertionSortC.o $(OBJ_DIR)/RASM5.o ../obj/putstring.o ../obj/String_length.o
 
 all: $(EXEC)
 
@@ -16,6 +16,9 @@ $(EXEC): $(OBJS)
 
 $(OBJ_DIR)/bubbleSortA.o: $(SRC_DIR)/bubbleSortA.s
 	$(AS) -g -o $(OBJ_DIR)/bubbleSortA.o $(SRC_DIR)/bubbleSortA.s
+
+$(OBJ_DIR)/insertionSortA.o: $(SRC_DIR)/insertionSortA.s
+	$(AS) -g -o $(OBJ_DIR)/insertionSortA.o $(SRC_DIR)/insertionSortA.s
 
 $(OBJ_DIR)/bubbleSortC.o: $(SRC_DIR)/bubbleSortC.cpp
 	$(CC) -c -g -o $(OBJ_DIR)/bubbleSortC.o $(SRC_DIR)/bubbleSortC.cpp

@@ -8,23 +8,26 @@ void displayMenu();                                                 // Reusuable
 void loadInputFile();                                               // Function that Loads the Input File
 void BubbleSort(long long int a[], int size);                       // Function cBubbleSort();                   // Function aBubbleSort();
 extern "C" void a_bubble_sort(long long int a[], int size);         // Function aBubbleSort();
+extern "C" void a_insertion_sort(long long int a[], int size);      // Function a_insertion_sort();
 void insertionSortC(long long int a[], int size);                   // Function cInsertionSort();
 int SIZE = 0;                                                       // The Size of our Array
 long long int *unSortedArray;                                       // Pointer to hold Memory Address of dynamicly created array
 long long int *sortedCBubbleSortArray;                              // pointer for the cBubbleSortArray
 long long int *sortedABubbleSortArray;
-long long int *sortedCInsertionSortArray;                
+long long int *sortedCInsertionSortArray;   
+long long int *sortedAInsertionSortArray;             
 double CBubbleSortTime;
 double ABubbleSortTime;
 double CInsertionSortTime;
+double AInsertionSortTime;
 int main() {
     
     system("clear");
     char userChoice = 0;
     do  {
         displayMenu(); 
-        cout  << "Enter your choice: " << endl;
-        cin  >> userChoice;
+        cout  << "Enter your choice: " << endl;               
+        cin  >> userChoice;                                 // grab user input
         //fixes input failure and does not allow the "enter correct choice" screen to repeat
         while (userChoice < 49 || userChoice > '6' ) {
                 system("clear");
@@ -113,7 +116,27 @@ int main() {
                     }
                     break;
             case '5':
-                    break;
+                    if (SIZE <=0) {
+                        cout << "There is no items to be sorted." << endl;
+                    }
+                    else {
+                        sortedAInsertionSortArray = new long long int[SIZE];
+                        for (int i = 0; i < SIZE; i++) {
+                            sortedAInsertionSortArray[i] = unSortedArray[i];
+                        }
+                        clock_t start = clock();
+                        a_insertion_sort(sortedAInsertionSortArray, SIZE);
+                        clock_t end = clock();
+                        AInsertionSortTime= static_cast<double>(end - start) / CLOCKS_PER_SEC;
+
+                        //------Write to a File-------------------
+                        ofstream file("sortedAInsertionSort.txt");
+                        for (int i =0; i < SIZE; i++) {
+                            file << sortedAInsertionSortArray[i] << '\n';
+                        }
+                        file.close();
+                    }
+                        break;
             case '6':
                     break;
         }
@@ -130,7 +153,7 @@ void displayMenu() {
     cout << "Assembly   Bubblesort Time: " << ABubbleSortTime << " seconds" << endl;
     cout << endl;
     cout << "C          Insertionsort Time: " << CInsertionSortTime << " seconds" << endl;
-    cout << "Assembly   Insertionsort Time: " << endl;
+    cout << "Assembly   Insertionsort Time: " <<  AInsertionSortTime << " seconds" << endl;
     cout << "------------------------------------------------" << endl;
     cout << "<1> Load Input File (integers)"                   << endl;
     cout << "<2> Sort using C Bubblesort algorithim"           << endl;
